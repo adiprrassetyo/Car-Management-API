@@ -14,6 +14,8 @@ app.use(
 );
 app.use(cookieParser());
 app.use(cors());
+const router = require("./routes/routes");
+app.use(router);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
