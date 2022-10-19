@@ -37,13 +37,13 @@ exports.create = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const admin = await Admin.findOne({ where: { email } });
-    if (!admin) {
+    const user = await Admin.findOne({ where: { email } });
+    if (!user) {
       return res.status(400).send({
         message: "Admin not found",
       });
     }
-    const validPassword = await bcrypt.compare(password, admin.password);
+    const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       return res.status(400).send({
         message: "Wrong password",
@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
     }
     const token = jwt.sign(
       {
-        admin,
+        user,
         role: "Admin",
       },
       secretKey

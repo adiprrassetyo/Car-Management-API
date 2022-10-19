@@ -10,13 +10,13 @@ exports.authorize = async (req, res, next) => {
     const bearerToken = req.headers.authorization;
     const token = bearerToken.split(" ")[1];
     const tokenPayload = jwt.verify(token, secretKey);
+    console.log(tokenPayload);
     if (tokenPayload.role === "Superadmin") {
-      req.user = await Superadmin.findByPk(tokenPayload.superadmin.id);
+      req.user = await Superadmin.findByPk(tokenPayload.user.id);
     } else if (tokenPayload.role === "Admin") {
-      req.user = await Admin.findByPk(tokenPayload.admin.id);
+      req.user = await Admin.findByPk(tokenPayload.user.id);
     } else {
-      console.log(tokenPayload.member);
-      req.user = await Member.findByPk(tokenPayload.member.id);
+      req.user = await Member.findByPk(tokenPayload.user.id);
     }
     next();
   } catch (error) {
@@ -50,9 +50,9 @@ exports.authorizeAdmin = async (req, res, next) => {
     const token = bearerToken.split(" ")[1];
     const tokenPayload = jwt.verify(token, secretKey);
     if (tokenPayload.role === "Superadmin") {
-      req.user = await superAdminService.findById(tokenPayload.user.id);
+      req.user = await Superadmin.findByPk(tokenPayload.user.id);
     } else if (tokenPayload.role === "Admin") {
-      req.user = await adminService.findById(tokenPayload.user.id);
+      req.user = await Admin.findByPk(tokenPayload.user.id);
     } else {
       throw new Error();
     }

@@ -7,8 +7,8 @@ const { Member } = require("../models");
 exports.register = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const member = await Member.findOne({ where: { email } });
-    if (member) {
+    const user = await Member.findOne({ where: { email } });
+    if (user) {
       return res.status(400).send({
         message: "Member already exists",
       });
@@ -37,13 +37,13 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const member = await Member.findOne({ where: { email } });
-    if (!member) {
+    const user = await Member.findOne({ where: { email } });
+    if (!user) {
       return res.status(400).send({
         message: "Member not found",
       });
     }
-    const validPassword = await bcrypt.compare(password, member.password);
+    const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       return res.status(400).send({
         message: "Wrong password",
@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
     }
     const token = jwt.sign(
       {
-        member,
+        user,
       },
       secretKey
     );
