@@ -19,7 +19,13 @@ exports.login = async (req, res) => {
         message: "Wrong password",
       });
     }
-    const token = jwt.sign({ id: superadmin.id }, secretKey);
+    const token = jwt.sign(
+      {
+        superadmin,
+        role: "Superadmin",
+      },
+      secretKey
+    );
     res.send({
       message: "Login success",
       role: "superadmin",

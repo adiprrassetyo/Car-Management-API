@@ -4,7 +4,7 @@ const secretKey = "secret";
 const { Member } = require("../models");
 
 // create
-exports.create = async (req, res) => {
+exports.register = async (req, res) => {
   try {
     const { email, password } = req.body;
     const member = await Member.findOne({ where: { email } });
@@ -49,7 +49,12 @@ exports.login = async (req, res) => {
         message: "Wrong password",
       });
     }
-    const token = jwt.sign({ id: member.id }, secretKey);
+    const token = jwt.sign(
+      {
+        member,
+      },
+      secretKey
+    );
     res.send({
       message: "Login success",
       role: "member",
