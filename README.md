@@ -17,33 +17,31 @@
 3. Next Step
 
    ```sh
-   - setting config.js with your database, in my case i use xampp/mysql
+   setting config/config.js with your database, in my case i use xampp/mysql
    ```
 
 4. Make Database
 
    ```sh
-   - npm run create
-   -
+   npm run create
    ```
 
 5. Migrate Table Database
 
    ```sh
-   - npm run migrate
-   -
+   npm run migrate
    ```
 
 6. Seeders
 
    ```sh
-   - npm run seed
+   npm run seed
    ```
 
 7. Start The Project
 
    ```sh
-   - npm start
+   npm start
    ```
 
 ## Superadmin
