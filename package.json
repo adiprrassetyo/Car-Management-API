@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "create": "sequelize-cli db:create",
-    "migrate": "sequelize-cli db:migrate",
-    "seed": "sequelize db:seed",
+    "create": "sequelize db:create",
+    "migrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

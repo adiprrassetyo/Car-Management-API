@@ -6,24 +6,40 @@ const memberController = require("../controllers/memberController");
 const authController = require("../controllers/authController");
 const carController = require("../controllers/carController");
 
-router.post("/superadmin/login", superAdminController.login);
+const prefix = "/api/v1";
+
+// Super Admin Routes
+router.post(prefix + "/superadmin/login", superAdminController.login);
 router.post(
-  "/superadmin/admin/add",
+  prefix + "/superadmin/admin/add",
   authController.authorizeSuperadmin,
   adminController.create
 );
-router.post("/admin/login", adminController.login);
-router.post("/member/register", memberController.register);
-router.post("/member/login", memberController.login);
-router.get("/users", authController.authorize, authController.whoAmI);
+// Admin Routes
+router.post(prefix + "/admin/login", adminController.login);
+// Member Routes
+router.post(prefix + "/member/register", memberController.register);
+router.post(prefix + "/member/login", memberController.login);
 
-router.get("/cars", carController.listCar);
-router.post("/cars", authController.authorizeAdmin, carController.createCar);
-router.put("/cars/:id", authController.authorizeAdmin, carController.updateCar);
+// Car Routes
+router.get(prefix + "/cars", carController.listCar);
+router.post(
+  prefix + "/cars",
+  authController.authorizeAdmin,
+  carController.createCar
+);
+router.put(
+  prefix + "/cars/:id",
+  authController.authorizeAdmin,
+  carController.updateCar
+);
 router.delete(
-  "/cars/:id",
+  prefix + "/cars/:id",
   authController.authorizeAdmin,
   carController.deleteCar
 );
+
+// Auth Routes Who Am I
+router.get(prefix + "/users", authController.authorize, authController.whoAmI);
 
 module.exports = router;
