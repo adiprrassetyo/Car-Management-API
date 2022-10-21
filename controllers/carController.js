@@ -24,12 +24,14 @@ exports.listCar = async (req, res) => {
 exports.createCar = async (req, res) => {
   const car = {
     name: req.body.name,
+    price: req.body.price,
     deleted: false,
     createdBy: req.user.email,
   };
   try {
     const newCar = await Car.create({
       name: car.name,
+      price: car.price,
       deleted: false,
       created_by: car.createdBy,
     });
@@ -47,6 +49,7 @@ exports.updateCar = async (req, res) => {
   const car = {
     id: req.params.id,
     name: req.body.name,
+    price: req.body.price,
     deleted: false,
     updatedBy: req.user.email,
   };
@@ -54,6 +57,7 @@ exports.updateCar = async (req, res) => {
     const updatedCar = await Car.update(
       {
         name: car.name,
+        price: car.price,
         deleted: false,
         updated_by: car.updatedBy,
       },
