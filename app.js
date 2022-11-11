@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
 const app = express();
+const { sequelize: db } = require("./models/index.js");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -17,11 +18,17 @@ app.use(cors());
 const router = require("./routes/routes");
 app.use(router);
 
-server.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('welcome to my Cars API !')
 })
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}...`);
-});
+try {
+  db.authenticate();
+  console.info("DB authenticate successfully");
+  app.listen(PORT, () => {
+    console.info(`Server allready listening for request on port ${PORT}...`);
+  });
+} catch (e) {
+  console.error(e);
+}
