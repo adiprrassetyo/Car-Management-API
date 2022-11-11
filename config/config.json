@@ -14,11 +14,6 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "rztMeMpH7eaXgQw3wBO1",
-    "database": "railway",
-    "host": "containers-us-west-97.railway.app",
-    "port": "7584",
-    "dialect": "mysql"
+    "url": "mysql://root:rztMeMpH7eaXgQw3wBO1@containers-us-west-97.railway.app:7584/railway"
   }
 }

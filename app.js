@@ -17,6 +17,10 @@ app.use(cors());
 const router = require("./routes/routes");
 app.use(router);
 
+server.get('/', (req, res) => {
+  res.send('welcome to my Cars API !')
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
